@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 40 27% 95%;
+  --foreground: 30 12% 13%;
+  --card: 0 0% 100%;
+  --card-foreground: 30 12% 13%;
+  --primary: 35 80% 46%;
+  --primary-foreground: 0 0% 100%;
+  --muted: 40 18% 90%;
+  --muted-foreground: 28 10% 37%;
+  --border: 35 18% 82%;
+  --radius: 0.75rem;
+}
+
+body {
+  background-image: radial-gradient(circle at top right, #fde6bd 0%, #f5efe3 45%, #efe8d9 100%);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

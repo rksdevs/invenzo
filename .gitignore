@@ -1,0 +1,24 @@
+node_modules/
+node_modules/**
+**/node_modules/
+**/node_modules/**
+
+# Env files
+.env
+.env.*
+**/.env
+**/.env.*
+**/.env.local
+**/.env.development
+**/.env.production
+!**/.env.example
+
+# Build and cache
+**/.next/
+**/out/
+**/dist/
+**/.turbo/
+**/.cache/
+coverage/
+D:\Invenzo\node_modules
+D:\Invenzo\node_modules/**
