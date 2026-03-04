@@ -8,6 +8,11 @@ su - postgres -c "psql -tc \"SELECT 1 FROM pg_database WHERE datname='invenzo'\"
   su - postgres -c "createdb -O invenzo invenzo"
 
 cd /app/apps/api
-npx prisma migrate deploy || true
+# Apply migrations when available; otherwise push schema for fresh setups.
+if [ -d prisma/migrations ] && [ -n "$(ls -A prisma/migrations 2>/dev/null)" ]; then
+  npx prisma migrate deploy || true
+else
+  npx prisma db push || true
+fi
 
 psql "$DATABASE_URL" -f /app/apps/api/prisma/rls.sql || true
