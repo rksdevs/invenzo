@@ -67,14 +67,14 @@ export default function SettingsPage() {
             <div><Label>Name</Label><Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></div>
             <div><Label>Email</Label><Input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></div>
             <div><Label>Password</Label><Input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} /></div>
-            <div><Label>Role</Label><select className="h-10 w-full rounded-md border border-border bg-white px-3" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}><option>OWNER</option><option>CASHIER</option><option>ACCOUNTANT</option></select></div>
+            <div><Label>Role</Label><select className="h-10 w-full rounded-md border border-border bg-card px-3" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}><option>OWNER</option><option>CASHIER</option><option>ACCOUNTANT</option></select></div>
             <div className="md:col-span-4"><Button>Add User</Button></div>
           </form>
 
           <Table>
-            <TableHeader><TableRow><TableHead>Name</TableHead><TableHead>Email</TableHead><TableHead>Role</TableHead><TableHead>Status</TableHead></TableRow></TableHeader>
+            <TableHeader><TableRow><TableHead>Name</TableHead><TableHead className="hidden sm:table-cell">Email</TableHead><TableHead>Role</TableHead><TableHead>Status</TableHead></TableRow></TableHeader>
             <TableBody>
-              {users.map((user) => <TableRow key={user.id}><TableCell>{user.name}</TableCell><TableCell>{user.email}</TableCell><TableCell>{user.role}</TableCell><TableCell>{user.isActive ? 'Active' : 'Disabled'}</TableCell></TableRow>)}
+              {users.map((user) => <TableRow key={user.id}><TableCell>{user.name}</TableCell><TableCell className="hidden sm:table-cell">{user.email}</TableCell><TableCell>{user.role}</TableCell><TableCell>{user.isActive ? 'Active' : 'Disabled'}</TableCell></TableRow>)}
             </TableBody>
           </Table>
         </CardContent>

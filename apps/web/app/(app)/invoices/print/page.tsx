@@ -49,18 +49,18 @@ export default function PrintInvoicePage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl bg-white p-6 text-black">
+    <div className="mx-auto max-w-4xl bg-white p-4 text-black sm:p-6">
       <Button className="no-print mb-4" variant="outline" onClick={() => window.print()}>Print A4</Button>
       <h1 className="text-center text-2xl font-bold">TAX INVOICE</h1>
       <p className="text-center text-sm">(ORIGINAL FOR RECIPIENT)</p>
 
-      <div className="mt-4 grid grid-cols-2 gap-4 border p-3 text-sm">
+      <div className="mt-4 grid gap-4 border p-3 text-sm md:grid-cols-2">
         <div>
           <p className="font-semibold">{payload.invoice.tenant.businessName}</p>
           <p>GSTIN: {payload.invoice.tenant.gstin ?? '-'}</p>
           <p>{payload.invoice.tenant.address ?? '-'}</p>
         </div>
-        <div className="text-right">
+        <div className="md:text-right">
           <p>Invoice: {payload.invoice.invoiceNumber}</p>
           <p>Date: {formatDate(payload.invoice.invoiceDate)}</p>
           <p>Customer: {payload.invoice.customer?.name ?? 'Walk-in'}</p>
@@ -103,12 +103,12 @@ export default function PrintInvoicePage() {
         </Table>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
+      <div className="mt-4 grid gap-2 text-sm md:grid-cols-2">
         <div>
           <p>Amount in words:</p>
           <p className="font-medium">{amountWords}</p>
         </div>
-        <div className="text-right">
+        <div className="md:text-right">
           <p>Taxable: {formatCurrency(payload.invoice.taxableValue)}</p>
           <p>CGST: {formatCurrency(payload.invoice.cgstAmount)}</p>
           <p>SGST: {formatCurrency(payload.invoice.sgstAmount)}</p>

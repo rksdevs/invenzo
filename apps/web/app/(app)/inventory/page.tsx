@@ -49,7 +49,7 @@ export default function InventoryPage() {
         <CardHeader><CardTitle>Manual Inventory Register Entry</CardTitle></CardHeader>
         <CardContent>
           <form className="grid gap-3 md:grid-cols-4" onSubmit={submit}>
-            <div><Label>Product</Label><select className="h-10 w-full rounded-md border border-border bg-white px-3" value={adjustment.productId} onChange={(e) => setAdjustment({ ...adjustment, productId: e.target.value })}>{products.map((product) => <option key={product.id} value={product.id}>{product.name}</option>)}</select></div>
+            <div><Label>Product</Label><select className="h-10 w-full rounded-md border border-border bg-card px-3" value={adjustment.productId} onChange={(e) => setAdjustment({ ...adjustment, productId: e.target.value })}>{products.map((product) => <option key={product.id} value={product.id}>{product.name}</option>)}</select></div>
             <div><Label>Quantity (+/-)</Label><Input type="number" value={adjustment.quantity} onChange={(e) => setAdjustment({ ...adjustment, quantity: Number(e.target.value || 0) })} /></div>
             <div className="md:col-span-2"><Label>Reason</Label><Input value={adjustment.reason} onChange={(e) => setAdjustment({ ...adjustment, reason: e.target.value })} /></div>
             <div className="md:col-span-4"><Button>Post Adjustment</Button></div>
@@ -61,13 +61,13 @@ export default function InventoryPage() {
         <CardHeader><CardTitle>Current Stock</CardTitle></CardHeader>
         <CardContent>
           <Table>
-            <TableHeader><TableRow><TableHead>Product</TableHead><TableHead>Available</TableHead><TableHead>Unit</TableHead><TableHead>Status</TableHead></TableRow></TableHeader>
+            <TableHeader><TableRow><TableHead>Product</TableHead><TableHead>Available</TableHead><TableHead className="hidden sm:table-cell">Unit</TableHead><TableHead>Status</TableHead></TableRow></TableHeader>
             <TableBody>
               {stock.map((row) => (
                 <TableRow key={row.productId}>
                   <TableCell>{row.productName}</TableCell>
                   <TableCell>{row.currentQty}</TableCell>
-                  <TableCell>{row.unit}</TableCell>
+                  <TableCell className="hidden sm:table-cell">{row.unit}</TableCell>
                   <TableCell>{row.lowStock ? <Badge className="bg-red-100 text-red-700">Low</Badge> : <Badge className="bg-green-100 text-green-700">OK</Badge>}</TableCell>
                 </TableRow>
               ))}

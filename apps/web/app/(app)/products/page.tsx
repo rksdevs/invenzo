@@ -54,14 +54,14 @@ export default function ProductsPage() {
         <CardHeader><CardTitle>Products</CardTitle></CardHeader>
         <CardContent>
           <Table>
-            <TableHeader><TableRow><TableHead>Name</TableHead><TableHead>HSN</TableHead><TableHead>GST</TableHead><TableHead>Price</TableHead></TableRow></TableHeader>
+            <TableHeader><TableRow><TableHead>Name</TableHead><TableHead className="hidden sm:table-cell">HSN</TableHead><TableHead>GST</TableHead><TableHead className="text-right">Price</TableHead></TableRow></TableHeader>
             <TableBody>
               {products.map((product) => (
                 <TableRow key={product.id}>
                   <TableCell>{product.name}</TableCell>
-                  <TableCell>{product.hsnSac}</TableCell>
+                  <TableCell className="hidden sm:table-cell">{product.hsnSac}</TableCell>
                   <TableCell>{product.gstRate}%</TableCell>
-                  <TableCell>{formatCurrency(product.sellingPrice)}</TableCell>
+                  <TableCell className="text-right">{formatCurrency(product.sellingPrice)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

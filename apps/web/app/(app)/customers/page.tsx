@@ -49,10 +49,10 @@ export default function CustomersPage() {
         <CardHeader><CardTitle>Customers</CardTitle></CardHeader>
         <CardContent>
           <Table>
-            <TableHeader><TableRow><TableHead>Name</TableHead><TableHead>Phone</TableHead><TableHead>GSTIN</TableHead><TableHead>Address</TableHead></TableRow></TableHeader>
+            <TableHeader><TableRow><TableHead>Name</TableHead><TableHead>Phone</TableHead><TableHead className="hidden sm:table-cell">GSTIN</TableHead><TableHead className="hidden md:table-cell">Address</TableHead></TableRow></TableHeader>
             <TableBody>
               {customers.map((customer) => (
-                <TableRow key={customer.id}><TableCell>{customer.name}</TableCell><TableCell>{customer.phone ?? '-'}</TableCell><TableCell>{customer.gstin ?? '-'}</TableCell><TableCell>{customer.address ?? '-'}</TableCell></TableRow>
+                <TableRow key={customer.id}><TableCell>{customer.name}</TableCell><TableCell>{customer.phone ?? '-'}</TableCell><TableCell className="hidden sm:table-cell">{customer.gstin ?? '-'}</TableCell><TableCell className="hidden md:table-cell">{customer.address ?? '-'}</TableCell></TableRow>
               ))}
             </TableBody>
           </Table>

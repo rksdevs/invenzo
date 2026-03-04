@@ -45,7 +45,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md items-center p-6">
+    <div className="mx-auto flex min-h-screen max-w-md items-center p-4 sm:p-6">
       <Card className="w-full">
         <CardHeader>
           <CardTitle>Login</CardTitle>

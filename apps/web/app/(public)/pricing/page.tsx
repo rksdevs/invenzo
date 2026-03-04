@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui
 
 export default function PricingPage() {
   return (
-    <div className="mx-auto max-w-4xl p-6">
-      <h1 className="mb-4 text-3xl font-semibold">Pricing</h1>
+    <div className="mx-auto max-w-4xl p-4 sm:p-6">
+      <h1 className="mb-4 text-2xl font-semibold sm:text-3xl">Pricing</h1>
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader><CardTitle>Starter</CardTitle></CardHeader>

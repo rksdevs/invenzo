@@ -6,12 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/ca
 
 export default function LandingPage() {
   return (
-    <div className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center p-6">
+    <div className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center p-4 sm:p-6">
       <div className="grid w-full gap-6 lg:grid-cols-2">
-        <Card className="border-amber-200 bg-white/90">
+        <Card className="border-border bg-card/90">
           <CardHeader>
             <p className="text-xs uppercase tracking-wide text-muted-foreground">Multi Tenant GST POS</p>
-            <CardTitle className="text-4xl">Built for Bicycle & Spare Part Retail in India</CardTitle>
+            <CardTitle className="text-3xl sm:text-4xl">Built for Bicycle & Spare Part Retail in India</CardTitle>
           </CardHeader>
           <CardContent className="space-y-5">
             <p className="text-muted-foreground">

@@ -31,7 +31,7 @@ export default function ReportsPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-semibold">Reports</h1>
+      <h1 className="text-xl font-semibold sm:text-2xl">Reports</h1>
       <div className="grid gap-4 md:grid-cols-3">
         <Card><CardHeader><CardTitle className="text-sm text-muted-foreground">Output GST</CardTitle></CardHeader><CardContent><p className="text-2xl font-semibold">{formatCurrency(gst?.sales?.totalTaxAmount)}</p></CardContent></Card>
         <Card><CardHeader><CardTitle className="text-sm text-muted-foreground">Input GST</CardTitle></CardHeader><CardContent><p className="text-2xl font-semibold">{formatCurrency(gst?.purchases?.totalTaxAmount)}</p></CardContent></Card>
@@ -42,14 +42,14 @@ export default function ReportsPage() {
         <Card>
           <CardHeader><CardTitle>Sales Register</CardTitle></CardHeader>
           <CardContent>
-            <Table><TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead>Date</TableHead><TableHead>Total</TableHead></TableRow></TableHeader><TableBody>{sales.map((row) => <TableRow key={row.id}><TableCell>{row.invoiceNumber}</TableCell><TableCell>{formatDate(row.invoiceDate)}</TableCell><TableCell>{formatCurrency(row.totalAmount)}</TableCell></TableRow>)}</TableBody></Table>
+            <Table><TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead className="hidden sm:table-cell">Date</TableHead><TableHead className="text-right">Total</TableHead></TableRow></TableHeader><TableBody>{sales.map((row) => <TableRow key={row.id}><TableCell>{row.invoiceNumber}</TableCell><TableCell className="hidden sm:table-cell">{formatDate(row.invoiceDate)}</TableCell><TableCell className="text-right">{formatCurrency(row.totalAmount)}</TableCell></TableRow>)}</TableBody></Table>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader><CardTitle>Purchase Register</CardTitle></CardHeader>
           <CardContent>
-            <Table><TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead>Date</TableHead><TableHead>Total</TableHead></TableRow></TableHeader><TableBody>{purchases.map((row) => <TableRow key={row.id}><TableCell>{row.invoiceNumber}</TableCell><TableCell>{formatDate(row.invoiceDate)}</TableCell><TableCell>{formatCurrency(row.totalAmount)}</TableCell></TableRow>)}</TableBody></Table>
+            <Table><TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead className="hidden sm:table-cell">Date</TableHead><TableHead className="text-right">Total</TableHead></TableRow></TableHeader><TableBody>{purchases.map((row) => <TableRow key={row.id}><TableCell>{row.invoiceNumber}</TableCell><TableCell className="hidden sm:table-cell">{formatDate(row.invoiceDate)}</TableCell><TableCell className="text-right">{formatCurrency(row.totalAmount)}</TableCell></TableRow>)}</TableBody></Table>
           </CardContent>
         </Card>
       </div>

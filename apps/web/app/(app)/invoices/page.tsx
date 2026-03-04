@@ -25,13 +25,13 @@ export default function InvoicesPage() {
       <CardHeader><CardTitle>Customer Invoices</CardTitle></CardHeader>
       <CardContent>
         <Table>
-          <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead>Date</TableHead><TableHead>Total</TableHead><TableHead /></TableRow></TableHeader>
+          <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead className="hidden sm:table-cell">Date</TableHead><TableHead className="text-right">Total</TableHead><TableHead /></TableRow></TableHeader>
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.id}>
                 <TableCell>{row.invoiceNumber}</TableCell>
-                <TableCell>{formatDate(row.invoiceDate)}</TableCell>
-                <TableCell>{formatCurrency(row.totalAmount)}</TableCell>
+                <TableCell className="hidden sm:table-cell">{formatDate(row.invoiceDate)}</TableCell>
+                <TableCell className="text-right">{formatCurrency(row.totalAmount)}</TableCell>
                 <TableCell><Button asChild variant="outline" size="sm"><Link href={`/invoices/print?id=${row.id}`}>Print</Link></Button></TableCell>
               </TableRow>
             ))}

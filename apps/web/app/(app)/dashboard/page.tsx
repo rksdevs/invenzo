@@ -38,7 +38,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-semibold">Dashboard Overview</h1>
+      <h1 className="text-xl font-semibold sm:text-2xl">Dashboard Overview</h1>
       <div className="grid gap-4 md:grid-cols-4">
         <Card><CardHeader><CardTitle className="text-sm text-muted-foreground">Sales Register Total</CardTitle></CardHeader><CardContent><p className="text-2xl font-semibold">{formatCurrency(todaySales)}</p></CardContent></Card>
         <Card><CardHeader><CardTitle className="text-sm text-muted-foreground">Purchase Total</CardTitle></CardHeader><CardContent><p className="text-2xl font-semibold">{formatCurrency(purchases.reduce((sum, row) => sum + Number((row as unknown as { totalAmount: string | number }).totalAmount), 0))}</p></CardContent></Card>
@@ -64,12 +64,12 @@ export default function DashboardPage() {
           <CardHeader><CardTitle>Recent Sales</CardTitle></CardHeader>
           <CardContent>
             <Table>
-              <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead>Date</TableHead><TableHead className="text-right">Total</TableHead></TableRow></TableHeader>
+              <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead className="hidden sm:table-cell">Date</TableHead><TableHead className="text-right">Total</TableHead></TableRow></TableHeader>
               <TableBody>
                 {sales.slice(0, 5).map((row) => (
                   <TableRow key={row.id}>
                     <TableCell>{row.invoiceNumber}</TableCell>
-                    <TableCell>{formatDate(row.invoiceDate)}</TableCell>
+                    <TableCell className="hidden sm:table-cell">{formatDate(row.invoiceDate)}</TableCell>
                     <TableCell className="text-right">{formatCurrency(row.totalAmount)}</TableCell>
                   </TableRow>
                 ))}

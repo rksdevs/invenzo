@@ -3,20 +3,33 @@
 @tailwind utilities;
 
 :root {
-  --background: 40 27% 95%;
-  --foreground: 30 12% 13%;
-  --card: 0 0% 100%;
-  --card-foreground: 30 12% 13%;
-  --primary: 35 80% 46%;
+  --background: 180 38% 94%;
+  --foreground: 184 100% 9%;
+  --card: 180 38% 94%;
+  --card-foreground: 184 100% 9%;
+  --primary: 180 100% 9%;
   --primary-foreground: 0 0% 100%;
-  --muted: 40 18% 90%;
-  --muted-foreground: 28 10% 37%;
-  --border: 35 18% 82%;
+  --muted: 167 41% 88%;
+  --muted-foreground: 177 27% 24%;
+  --border: 177 28% 81%;
   --radius: 0.75rem;
 }
 
 body {
-  background-image: radial-gradient(circle at top right, #fde6bd 0%, #f5efe3 45%, #efe8d9 100%);
+  background-image:
+    radial-gradient(circle at 20% 10%, #d4efec 0%, transparent 35%),
+    radial-gradient(circle at 85% 0%, #c8e6e2 0%, transparent 28%),
+    linear-gradient(180deg, #ebf7f7 0%, #e3f1ef 100%);
+  color: #003032;
+  overflow-x: hidden;
+}
+
+main {
+  min-width: 0;
+}
+
+::selection {
+  background: rgba(0, 48, 50, 0.2);
 }
 
 @media print {

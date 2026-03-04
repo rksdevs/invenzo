@@ -46,6 +46,26 @@ cmd /c npm run dev:web
 - Web: `http://localhost:3000`
 - API: `http://localhost:3001/api`
 
+## SMTP Email Verification
+
+To send real verification emails on signup, configure these vars in `apps/api/.env`:
+
+```bash
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+SMTP_FROM_NAME=Invenzo
+SMTP_FROM_EMAIL=your-email@gmail.com
+```
+
+Install SMTP dependency:
+
+```bash
+cmd /c npm install -w @invenzo/api nodemailer @types/nodemailer
+```
+
 ## Demo Credentials
 
 - Owner login: `owner@demo.in`

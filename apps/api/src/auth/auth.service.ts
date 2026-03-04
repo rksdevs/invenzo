@@ -1,15 +1,19 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { LoginDto, SignupTenantDto } from './dto';
 import * as bcrypt from 'bcryptjs';
 import { randomBytes, randomUUID } from 'crypto';
+import { MailerService } from './mailer.service';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
+    private readonly mailerService: MailerService,
   ) {}
 
   async signupTenant(dto: SignupTenantDto) {
@@ -39,12 +43,26 @@ export class AuthService {
     const user = tenant.users[0];
     const base = process.env.APP_BASE_URL ?? 'http://localhost:3000';
     const verificationLink = `${base}/verify-email?token=${verificationToken}`;
+    const emailResult = await this.mailerService.sendVerificationEmail({
+      to: user.email,
+      ownerName: user.name,
+      businessName: tenant.businessName,
+      verificationLink,
+    });
+
+    if (emailResult.sent) {
+      this.logger.log(`Verification email sent to ${user.email}`);
+    } else {
+      this.logger.warn(`Verification email not sent for ${user.email}. Reason: ${emailResult.reason ?? 'UNKNOWN'}`);
+    }
 
     return {
       success: true,
       message: 'Signup successful. Please verify your email before login.',
       tenantId: tenant.id,
       userId: user.id,
+      emailSent: emailResult.sent,
+      emailSendReason: emailResult.reason,
       verificationLink,
     };
   }

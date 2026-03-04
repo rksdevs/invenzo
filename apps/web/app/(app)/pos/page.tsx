@@ -95,11 +95,11 @@ export default function PosPage() {
         <CardHeader><CardTitle>Create Customer Bill</CardTitle></CardHeader>
         <CardContent>
           <form className="grid gap-3" onSubmit={createSale}>
-            <div><Label>Product</Label><select className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm" value={productId} onChange={(e) => setProductId(e.target.value)}>{products.map((product) => <option value={product.id} key={product.id}>{product.name}</option>)}</select></div>
-            <div><Label>Customer</Label><select className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm" value={customerId} onChange={(e) => setCustomerId(e.target.value)}><option value="">Walk-in</option>{customers.map((customer) => <option value={customer.id} key={customer.id}>{customer.name}</option>)}</select></div>
+            <div><Label>Product</Label><select className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm" value={productId} onChange={(e) => setProductId(e.target.value)}>{products.map((product) => <option value={product.id} key={product.id}>{product.name}</option>)}</select></div>
+            <div><Label>Customer</Label><select className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm" value={customerId} onChange={(e) => setCustomerId(e.target.value)}><option value="">Walk-in</option>{customers.map((customer) => <option value={customer.id} key={customer.id}>{customer.name}</option>)}</select></div>
             <div className="grid gap-3 sm:grid-cols-2">
               <div><Label>Quantity</Label><Input type="number" min={1} value={qty} onChange={(e) => setQty(Number(e.target.value || 1))} /></div>
-              <div><Label>Payment</Label><select className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm" value={paymentMode} onChange={(e) => setPaymentMode(e.target.value as 'CASH' | 'UPI' | 'CARD' | 'CREDIT')}><option>CASH</option><option>UPI</option><option>CARD</option><option>CREDIT</option></select></div>
+              <div><Label>Payment</Label><select className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm" value={paymentMode} onChange={(e) => setPaymentMode(e.target.value as 'CASH' | 'UPI' | 'CARD' | 'CREDIT')}><option>CASH</option><option>UPI</option><option>CARD</option><option>CREDIT</option></select></div>
             </div>
             <div className="rounded-md border bg-muted/40 p-3 text-sm">
               <p>Rate: {formatCurrency(selectedProduct?.sellingPrice ?? 0)}</p>
@@ -116,12 +116,12 @@ export default function PosPage() {
         <CardHeader><CardTitle>Recent Bills</CardTitle></CardHeader>
         <CardContent>
           <Table>
-            <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead>Total</TableHead><TableHead /></TableRow></TableHeader>
+            <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead className="text-right">Total</TableHead><TableHead /></TableRow></TableHeader>
             <TableBody>
               {sales.slice(0, 8).map((sale) => (
                 <TableRow key={sale.id}>
                   <TableCell>{sale.invoiceNumber}</TableCell>
-                  <TableCell>{formatCurrency(sale.totalAmount)}</TableCell>
+                  <TableCell className="text-right">{formatCurrency(sale.totalAmount)}</TableCell>
                   <TableCell><Button size="sm" variant="ghost" asChild><Link href={`/invoices/print?id=${sale.id}`}>Print</Link></Button></TableCell>
                 </TableRow>
               ))}

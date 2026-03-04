@@ -80,10 +80,10 @@ export default function PurchasesPage() {
         <CardHeader><CardTitle>Manual Purchase Invoice Entry (Wholesale Bill)</CardTitle></CardHeader>
         <CardContent>
           <form className="grid gap-3 md:grid-cols-3" onSubmit={submit}>
-            <div><Label>Supplier</Label><select className="h-10 w-full rounded-md border border-border bg-white px-3" value={form.supplierId} onChange={(e) => setForm({ ...form, supplierId: e.target.value })}>{suppliers.map((supplier) => <option key={supplier.id} value={supplier.id}>{supplier.name}</option>)}</select></div>
+            <div><Label>Supplier</Label><select className="h-10 w-full rounded-md border border-border bg-card px-3" value={form.supplierId} onChange={(e) => setForm({ ...form, supplierId: e.target.value })}>{suppliers.map((supplier) => <option key={supplier.id} value={supplier.id}>{supplier.name}</option>)}</select></div>
             <div><Label>Invoice Number</Label><Input value={form.invoiceNumber} onChange={(e) => setForm({ ...form, invoiceNumber: e.target.value })} /></div>
             <div><Label>Invoice Date</Label><Input type="date" value={form.invoiceDate} onChange={(e) => setForm({ ...form, invoiceDate: e.target.value })} /></div>
-            <div><Label>Product</Label><select className="h-10 w-full rounded-md border border-border bg-white px-3" value={form.productId} onChange={(e) => setForm({ ...form, productId: e.target.value })}>{products.map((product) => <option key={product.id} value={product.id}>{product.name}</option>)}</select></div>
+            <div><Label>Product</Label><select className="h-10 w-full rounded-md border border-border bg-card px-3" value={form.productId} onChange={(e) => setForm({ ...form, productId: e.target.value })}>{products.map((product) => <option key={product.id} value={product.id}>{product.name}</option>)}</select></div>
             <div><Label>Quantity</Label><Input type="number" value={form.quantity} onChange={(e) => setForm({ ...form, quantity: Number(e.target.value || 1) })} /></div>
             <div><Label>Rate</Label><Input type="number" value={form.rate} onChange={(e) => setForm({ ...form, rate: Number(e.target.value || 0) })} /></div>
             <div><Label>GST Rate</Label><Input type="number" value={form.gstRate} onChange={(e) => setForm({ ...form, gstRate: Number(e.target.value || 0) })} /></div>
@@ -97,13 +97,13 @@ export default function PurchasesPage() {
         <CardHeader><CardTitle>Purchase Register</CardTitle></CardHeader>
         <CardContent>
           <Table>
-            <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead>Supplier</TableHead><TableHead>Date</TableHead><TableHead className="text-right">Total</TableHead></TableRow></TableHeader>
+            <TableHeader><TableRow><TableHead>Invoice</TableHead><TableHead>Supplier</TableHead><TableHead className="hidden sm:table-cell">Date</TableHead><TableHead className="text-right">Total</TableHead></TableRow></TableHeader>
             <TableBody>
               {purchases.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell>{row.invoiceNumber}</TableCell>
                   <TableCell>{row.supplier.name}</TableCell>
-                  <TableCell>{formatDate(row.invoiceDate)}</TableCell>
+                  <TableCell className="hidden sm:table-cell">{formatDate(row.invoiceDate)}</TableCell>
                   <TableCell className="text-right">{formatCurrency(row.totalAmount)}</TableCell>
                 </TableRow>
               ))}

@@ -37,7 +37,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-lg items-center p-6">
+    <div className="mx-auto flex min-h-screen max-w-lg items-center p-4 sm:p-6">
       <Card className="w-full">
         <CardHeader><CardTitle>Create Store Account</CardTitle></CardHeader>
         <CardContent>
