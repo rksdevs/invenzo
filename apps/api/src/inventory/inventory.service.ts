@@ -22,17 +22,17 @@ export class InventoryService {
       new Map<string, number>(),
     );
 
-    const grouped = Array.from(groupedMap.entries()).map(([productId, quantity]) => ({
-      productId,
-      quantity,
-    }));
+    const grouped: Array<{ productId: string; quantity: number }> = [];
+    for (const [productId, quantity] of groupedMap) {
+      grouped.push({ productId, quantity });
+    }
 
     const productIds = grouped.map((row) => row.productId);
     const products = productIds.length
       ? await this.prisma.product.findMany({ where: { tenantId, id: { in: productIds } } })
       : [];
 
-    return grouped.map((row: { productId: string; quantity: number }) => {
+    return grouped.map((row) => {
       const product = products.find((entry: { id: string }) => entry.id === row.productId);
       const currentQty = row.quantity;
       return {
