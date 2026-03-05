@@ -12,6 +12,7 @@ import { SalesModule } from './sales/sales.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { ReportsModule } from './reports/reports.module';
 import { HealthController } from './health.controller';
+import { OcrModule } from './ocr/ocr.module';
 
 @Module({
   controllers: [HealthController],
@@ -31,6 +32,7 @@ import { HealthController } from './health.controller';
     SalesModule,
     InventoryModule,
     ReportsModule,
+    OcrModule,
   ],
 })
 export class AppModule {}

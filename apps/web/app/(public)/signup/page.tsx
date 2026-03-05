@@ -11,6 +11,8 @@ import { Label } from '../../../components/ui/label';
 interface SignupResponse {
   message: string;
   verificationLink: string;
+  emailSent?: boolean;
+  emailSendReason?: string;
 }
 
 export default function SignupPage() {
@@ -23,6 +25,7 @@ export default function SignupPage() {
     event.preventDefault();
     setLoading(true);
     setError(null);
+    setResult(null);
     try {
       const response = await apiFetch<SignupResponse>('/auth/signup-tenant', {
         method: 'POST',
@@ -30,6 +33,7 @@ export default function SignupPage() {
       });
       setResult(response);
     } catch (err) {
+      setForm({ businessName: '', gstin: '', ownerName: '', ownerEmail: '', password: '' });
       setError((err as Error).message);
     } finally {
       setLoading(false);
@@ -51,9 +55,16 @@ export default function SignupPage() {
             <Button className="w-full" disabled={loading}>{loading ? 'Creating account...' : 'Sign Up'}</Button>
           </form>
           {result ? (
-            <div className="mt-4 rounded-md border border-green-200 bg-green-50 p-3 text-sm">
+            <div className={`mt-4 rounded-md border p-3 text-sm ${result.emailSent ? 'border-green-200 bg-green-50 text-green-800' : 'border-amber-200 bg-amber-50 text-amber-900'}`}>
               <p>{result.message}</p>
-              <Link className="underline" href={result.verificationLink}>Verify account now</Link>
+              {result.emailSent ? (
+                <p className="mt-1 font-medium">Verification email sent. Please check inbox/spam.</p>
+              ) : (
+                <div className="mt-2 space-y-1">
+                  <p className="font-medium">Email not sent ({result.emailSendReason ?? 'UNKNOWN'}). Use manual verification:</p>
+                  <Link className="underline" href={result.verificationLink}>Open verification link</Link>
+                </div>
+              )}
             </div>
           ) : null}
         </CardContent>

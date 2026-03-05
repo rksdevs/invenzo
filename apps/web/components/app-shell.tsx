@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { LayoutDashboard, ReceiptText, ShoppingCart, Package, Boxes, Users, Truck, ChartNoAxesCombined, Settings, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, ReceiptText, ShoppingCart, Package, Boxes, Users, Truck, ChartNoAxesCombined, Settings, LogOut, Menu, X, ScanLine } from 'lucide-react';
 import { useAuth } from './auth-provider';
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
@@ -14,6 +14,7 @@ const links = [
   { href: '/purchases', label: 'Purchases', icon: ReceiptText },
   { href: '/inventory', label: 'Inventory', icon: Boxes },
   { href: '/products', label: 'Products', icon: Package },
+  { href: '/onboarding', label: 'Onboarding', icon: ScanLine },
   { href: '/suppliers', label: 'Suppliers', icon: Truck },
   { href: '/customers', label: 'Customers', icon: Users },
   { href: '/reports', label: 'Reports', icon: ChartNoAxesCombined },

@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { apiFetch } from '../lib/api';
+import { apiFetch, ApiError } from '../lib/api';
 import { AuthSession, loadSession, saveSession } from '../lib/session';
 
 interface MeResponse {
@@ -67,8 +67,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setMe(null);
       return;
     }
-    refreshMe().catch(() => {
-      logout();
+    refreshMe().catch((error: unknown) => {
+      const status = (error as ApiError)?.status;
+      if (status === 401) {
+        logout();
+      }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session?.accessToken]);

@@ -1,4 +1,4 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? 'http://localhost:3001/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? '/api';
 
 export interface ApiError extends Error {
   status?: number;
@@ -25,7 +25,12 @@ export async function apiFetch<T>(
 
   if (!response.ok) {
     const payload = await response.json().catch(() => ({}));
-    const err = new Error(payload.message ?? 'Request failed') as ApiError;
+    const message = Array.isArray(payload?.message)
+      ? payload.message.join(', ')
+      : typeof payload?.message === 'string'
+        ? payload.message
+        : 'Request failed';
+    const err = new Error(message) as ApiError;
     err.status = response.status;
     throw err;
   }

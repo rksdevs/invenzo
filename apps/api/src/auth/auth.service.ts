@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { LoginDto, SignupTenantDto } from './dto';
@@ -21,24 +21,38 @@ export class AuthService {
     const verificationToken = randomBytes(32).toString('hex');
     const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
-    const tenant = await this.prisma.tenant.create({
-      data: {
-        businessName: dto.businessName,
-        gstin: dto.gstin,
-        users: {
-          create: {
-            name: dto.ownerName,
-            email: dto.ownerEmail.toLowerCase(),
-            passwordHash,
-            role: 'OWNER',
-            isEmailVerified: false,
-            emailVerificationToken: verificationToken,
-            emailVerificationExpiresAt: verificationExpires,
+    let tenant: { id: string; businessName: string; users: Array<{ id: string; name: string; email: string }> };
+    try {
+      tenant = await this.prisma.tenant.create({
+        data: {
+          businessName: dto.businessName,
+          gstin: dto.gstin,
+          users: {
+            create: {
+              name: dto.ownerName,
+              email: dto.ownerEmail.toLowerCase(),
+              passwordHash,
+              role: 'OWNER',
+              isEmailVerified: false,
+              emailVerificationToken: verificationToken,
+              emailVerificationExpiresAt: verificationExpires,
+            },
           },
         },
-      },
-      include: { users: true },
-    });
+        include: { users: true },
+      });
+    } catch (error: unknown) {
+      const knownError = error as { code?: string; meta?: { target?: string[] | string } };
+      if (knownError?.code === 'P2002') {
+        const targetField = knownError.meta?.target;
+        const target = Array.isArray(targetField) ? targetField.join(',') : typeof targetField === 'string' ? targetField : '';
+        if (target.includes('gstin')) {
+          throw new ConflictException('GSTIN is already registered');
+        }
+        throw new ConflictException('Account already exists with provided details');
+      }
+      throw error;
+    }
 
     const user = tenant.users[0];
     const base = process.env.APP_BASE_URL ?? 'http://localhost:3000';

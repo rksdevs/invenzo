@@ -24,6 +24,7 @@ COPY infra/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY infra/entrypoint.sh /entrypoint.sh
 COPY infra/init-db.sh /init-db.sh
 
+RUN sed -i 's/\r$//' /entrypoint.sh /init-db.sh
 RUN chmod +x /entrypoint.sh /init-db.sh
 RUN mkdir -p /var/lib/postgresql/data /var/lib/redis /var/log/supervisor /run/postgresql
 

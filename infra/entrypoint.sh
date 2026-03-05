@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+chown -R postgres:postgres /var/lib/postgresql/data /run/postgresql
+
 if [ ! -s /var/lib/postgresql/data/PG_VERSION ]; then
   su - postgres -c "/usr/lib/postgresql/15/bin/initdb -D /var/lib/postgresql/data"
 fi
@@ -21,8 +23,6 @@ shared_buffers = 128MB
 logging_collector = on
 log_destination = 'stderr'
 EOF
-
-chown -R postgres:postgres /var/lib/postgresql/data /run/postgresql
 
 service postgresql start
 
